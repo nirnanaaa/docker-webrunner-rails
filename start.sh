@@ -18,7 +18,11 @@ case $1 in
     ruby /dpkg.rb
     bundle install --deployment --quiet
     [ -f /data/config/database.yml ] && bundle exec rake db:migrate
-    bundle exec rake assets:precompile
+
+    #if [ "$PRECOMPILE" != "false" ]; then
+      bundle exec rake assets:precompile
+    #fi
+
     if [ -f /data/config/hooks/pre_start ]; then
       ruby /data/config/hooks/pre_start
     fi
